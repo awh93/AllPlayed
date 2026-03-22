@@ -807,6 +807,8 @@ function AllPlayed:ComputeTotalHonor(force)
 	self.total_faction["Horde"].arena_2v2_won    			= 0
 	self.total_faction["Horde"].arena_3v3_played 			= 0
 	self.total_faction["Horde"].arena_3v3_won    			= 0
+	self.total_faction["Horde"].arena_solo_shuffle_played 	= 0
+	self.total_faction["Horde"].arena_solo_shuffle_won   	= 0
 
 	self.total_faction["Alliance"].honor_kills   			= 0
 	self.total_faction["Alliance"].honor_points  			= 0
@@ -816,8 +818,10 @@ function AllPlayed:ComputeTotalHonor(force)
 	self.total_faction["Alliance"].arena_won     			= 0
 	self.total_faction["Alliance"].arena_2v2_played 		= 0
 	self.total_faction["Alliance"].arena_2v2_won 			= 0
-	self.total_faction["Alliance"].arena_3v3_played 		= 0
-	self.total_faction["Alliance"].arena_3v3_won 			= 0
+	self.total_faction["Alliance"].arena_3v3_played 			= 0
+	self.total_faction["Alliance"].arena_3v3_won 				= 0
+	self.total_faction["Alliance"].arena_solo_shuffle_played 	= 0
+	self.total_faction["Alliance"].arena_solo_shuffle_won   	= 0
 
 	self.total_faction["Neutral"].honor_kills   			= 0
 	self.total_faction["Neutral"].honor_points  			= 0
@@ -827,8 +831,10 @@ function AllPlayed:ComputeTotalHonor(force)
 	self.total_faction["Neutral"].arena_won      			= 0
 	self.total_faction["Neutral"].arena_2v2_played 			= 0
 	self.total_faction["Neutral"].arena_2v2_won  			= 0
-	self.total_faction["Neutral"].arena_3v3_played 			= 0
-	self.total_faction["Neutral"].arena_3v3_won  			= 0
+	self.total_faction["Neutral"].arena_3v3_played 				= 0
+	self.total_faction["Neutral"].arena_3v3_won  				= 0
+	self.total_faction["Neutral"].arena_solo_shuffle_played 	= 0
+	self.total_faction["Neutral"].arena_solo_shuffle_won   		= 0
 
 	self.total.honor_kills                          			= 0
 	self.total.honor_points                         			= 0
@@ -840,6 +846,8 @@ function AllPlayed:ComputeTotalHonor(force)
 	self.total.arena_2v2_won                       				= 0
 	self.total.arena_3v3_played                    				= 0
 	self.total.arena_3v3_won                       				= 0
+	self.total.arena_solo_shuffle_played           				= 0
+	self.total.arena_solo_shuffle_won              				= 0
 
 	 -- Let all the factions, realms and PC be counted
 	 for faction, faction_table in pairs(self.db.global.data) do
@@ -859,6 +867,8 @@ function AllPlayed:ComputeTotalHonor(force)
 				self.total_realm[faction][realm].arena_2v2_won = 0
 				self.total_realm[faction][realm].arena_3v3_played = 0
 				self.total_realm[faction][realm].arena_3v3_won = 0
+				self.total_realm[faction][realm].arena_solo_shuffle_played = 0
+				self.total_realm[faction][realm].arena_solo_shuffle_won = 0
 
 				for pc, pc_table in pairs(realm_table) do
 					 if not self:GetOption('is_ignored', realm, pc) then
@@ -870,8 +880,10 @@ function AllPlayed:ComputeTotalHonor(force)
 						self.total_faction[faction].arena_won              = self.total_faction[faction].arena_won              + (pc_table.arena_won or 0)
 						self.total_faction[faction].arena_2v2_played       = self.total_faction[faction].arena_2v2_played       + (pc_table.arena_2v2_played or 0)
 						self.total_faction[faction].arena_2v2_won          = self.total_faction[faction].arena_2v2_won          + (pc_table.arena_2v2_won or 0)
-						self.total_faction[faction].arena_3v3_played       = self.total_faction[faction].arena_3v3_played       + (pc_table.arena_3v3_played or 0)
-						self.total_faction[faction].arena_3v3_won          = self.total_faction[faction].arena_3v3_won          + (pc_table.arena_3v3_won or 0)
+						self.total_faction[faction].arena_3v3_played             = self.total_faction[faction].arena_3v3_played             + (pc_table.arena_3v3_played or 0)
+						self.total_faction[faction].arena_3v3_won                = self.total_faction[faction].arena_3v3_won                + (pc_table.arena_3v3_won or 0)
+						self.total_faction[faction].arena_solo_shuffle_played    = self.total_faction[faction].arena_solo_shuffle_played    + (pc_table.arena_solo_shuffle_played or 0)
+						self.total_faction[faction].arena_solo_shuffle_won       = self.total_faction[faction].arena_solo_shuffle_won       + (pc_table.arena_solo_shuffle_won or 0)
 
 						self.total_realm[faction][realm].honor_kills    		= self.total_realm[faction][realm].honor_kills  			+ (pc_table.honor_kills or 0)
 						self.total_realm[faction][realm].honor_points   		= self.total_realm[faction][realm].honor_points 			+ (pc_table.honor_points or 0)
@@ -881,8 +893,10 @@ function AllPlayed:ComputeTotalHonor(force)
 						self.total_realm[faction][realm].arena_won          = self.total_realm[faction][realm].arena_won          + (pc_table.arena_won or 0)
 						self.total_realm[faction][realm].arena_2v2_played   = self.total_realm[faction][realm].arena_2v2_played   + (pc_table.arena_2v2_played or 0)
 						self.total_realm[faction][realm].arena_2v2_won      = self.total_realm[faction][realm].arena_2v2_won      + (pc_table.arena_2v2_won or 0)
-						self.total_realm[faction][realm].arena_3v3_played   = self.total_realm[faction][realm].arena_3v3_played   + (pc_table.arena_3v3_played or 0)
-						self.total_realm[faction][realm].arena_3v3_won      = self.total_realm[faction][realm].arena_3v3_won      + (pc_table.arena_3v3_won or 0)
+						self.total_realm[faction][realm].arena_3v3_played            = self.total_realm[faction][realm].arena_3v3_played            + (pc_table.arena_3v3_played or 0)
+						self.total_realm[faction][realm].arena_3v3_won               = self.total_realm[faction][realm].arena_3v3_won               + (pc_table.arena_3v3_won or 0)
+						self.total_realm[faction][realm].arena_solo_shuffle_played   = self.total_realm[faction][realm].arena_solo_shuffle_played   + (pc_table.arena_solo_shuffle_played or 0)
+						self.total_realm[faction][realm].arena_solo_shuffle_won      = self.total_realm[faction][realm].arena_solo_shuffle_won      + (pc_table.arena_solo_shuffle_won or 0)
 					 end
 				end
 		  end
@@ -932,6 +946,14 @@ function AllPlayed:ComputeTotalHonor(force)
 					 =   self.total_faction["Horde"].arena_3v3_won
 						+ self.total_faction["Alliance"].arena_3v3_won
 						+ self.total_faction["Neutral"].arena_3v3_won
+				self.total.arena_solo_shuffle_played
+					 =   self.total_faction["Horde"].arena_solo_shuffle_played
+						+ self.total_faction["Alliance"].arena_solo_shuffle_played
+						+ self.total_faction["Neutral"].arena_solo_shuffle_played
+				self.total.arena_solo_shuffle_won
+					 =   self.total_faction["Horde"].arena_solo_shuffle_won
+						+ self.total_faction["Alliance"].arena_solo_shuffle_won
+						+ self.total_faction["Neutral"].arena_solo_shuffle_won
 		  else
 				-- Only the current faction count
 				self.total.honor_kills 				= self.total_faction[self.faction].honor_kills
@@ -944,6 +966,8 @@ function AllPlayed:ComputeTotalHonor(force)
 				self.total.arena_2v2_won 			= self.total_faction[self.faction].arena_2v2_won
 				self.total.arena_3v3_played 		= self.total_faction[self.faction].arena_3v3_played
 				self.total.arena_3v3_won 			= self.total_faction[self.faction].arena_3v3_won
+				self.total.arena_solo_shuffle_played 	= self.total_faction[self.faction].arena_solo_shuffle_played
+				self.total.arena_solo_shuffle_won    	= self.total_faction[self.faction].arena_solo_shuffle_won
 		  end
 	 else
 		  -- Only the current realm count (all_factions is ignore)
@@ -957,6 +981,8 @@ function AllPlayed:ComputeTotalHonor(force)
 		  self.total.arena_2v2_won  			= self.total_realm[self.faction][self.realm].arena_2v2_won
 		  self.total.arena_3v3_played  		= self.total_realm[self.faction][self.realm].arena_3v3_played
 		  self.total.arena_3v3_won  			= self.total_realm[self.faction][self.realm].arena_3v3_won
+	  self.total.arena_solo_shuffle_played 	= self.total_realm[self.faction][self.realm].arena_solo_shuffle_played
+	  self.total.arena_solo_shuffle_won    	= self.total_realm[self.faction][self.realm].arena_solo_shuffle_won
 	 end
 	
 	-- Позначаємо кеш як валідний
@@ -978,19 +1004,23 @@ end
 -- Print arena summary to chat
 function AllPlayed:PrintArenaSummary()
 	self:ComputeTotalHonor(true)
-	local p2v2   = self.total.arena_2v2_played or 0
-	local w2v2   = self.total.arena_2v2_won or 0
-	local p3v3   = self.total.arena_3v3_played or 0
-	local w3v3   = self.total.arena_3v3_won or 0
-	local played = p2v2 + p3v3
-	local won    = w2v2 + w3v3
+	local p2v2 = self.total.arena_2v2_played or 0
+	local w2v2 = self.total.arena_2v2_won or 0
+	local p3v3 = self.total.arena_3v3_played or 0
+	local w3v3 = self.total.arena_3v3_won or 0
+	local pss  = self.total.arena_solo_shuffle_played or 0
+	local wss  = self.total.arena_solo_shuffle_won or 0
+	local played = p2v2 + p3v3 + pss
+	local won    = w2v2 + w3v3 + wss
 	local pct     = played > 0 and (won  / played * 100) or 0
-	local pct_2v2 = p2v2   > 0 and (w2v2 / p2v2   * 100) or 0
-	local pct_3v3 = p3v3   > 0 and (w3v3 / p3v3   * 100) or 0
+	local pct_2v2 = p2v2 > 0 and (w2v2 / p2v2 * 100) or 0
+	local pct_3v3 = p3v3 > 0 and (w3v3 / p3v3 * 100) or 0
+	local pct_ss  = pss  > 0 and (wss  / pss  * 100) or 0
 	local fmt = "|cffff9900[AllPlayed Arena]|r %s |cffffffff%d|r |cff00ff00[%.0f%%]|r"
-	_G.DEFAULT_CHAT_FRAME:AddMessage(string.format(fmt, "2v2:         ", p2v2, pct_2v2))
-	_G.DEFAULT_CHAT_FRAME:AddMessage(string.format(fmt, "3v3:         ", p3v3, pct_3v3))
-	_G.DEFAULT_CHAT_FRAME:AddMessage(string.format(fmt, "Total Arenas:", played, pct))
+	_G.DEFAULT_CHAT_FRAME:AddMessage(string.format(fmt, "2v2:          ", p2v2, pct_2v2))
+	_G.DEFAULT_CHAT_FRAME:AddMessage(string.format(fmt, "3v3:          ", p3v3, pct_3v3))
+	_G.DEFAULT_CHAT_FRAME:AddMessage(string.format(fmt, "Solo Shuffle: ", pss,  pct_ss))
+	_G.DEFAULT_CHAT_FRAME:AddMessage(string.format(fmt, "Total Arenas: ", played, pct))
 end
 
 -- Fill the QTip witl the information
@@ -1617,12 +1647,14 @@ end
 
 -- Arena statistic IDs from the Statistics panel (Player vs. Player > Rated Arenas)
 -- Verify in-game: /run print(GetStatistic(ID))
-local STAT_ARENAS_PLAYED   = 838
-local STAT_ARENAS_WON      = 837
-local STAT_2V2_PLAYED      = 367
-local STAT_2V2_WON         = 366
-local STAT_3V3_PLAYED      = 365
-local STAT_3V3_WON         = 364
+local STAT_ARENAS_PLAYED         = 838
+local STAT_ARENAS_WON            = 837
+local STAT_2V2_PLAYED            = 367
+local STAT_2V2_WON               = 366
+local STAT_3V3_PLAYED            = 365
+local STAT_3V3_WON               = 364
+local STAT_SOLO_SHUFFLE_PLAYED   = 0  -- TODO: verify stat ID in-game
+local STAT_SOLO_SHUFFLE_WON      = 0  -- TODO: verify stat ID in-game
 
 -- GetStatistic() returns "--" when the stat is zero/unset; convert to number safely
 local function ParseStat(s)
@@ -1697,12 +1729,14 @@ function AllPlayed:SaveVar()
 	 --self:SaveVarMarks()
 
 	 -- Arena statistics (lifetime totals from Statistics panel)
-	 pc.arena_played     = ParseStat(_G.GetStatistic(STAT_ARENAS_PLAYED))
-	 pc.arena_won        = ParseStat(_G.GetStatistic(STAT_ARENAS_WON))
-	 pc.arena_2v2_played = ParseStat(_G.GetStatistic(STAT_2V2_PLAYED))
-	 pc.arena_2v2_won    = ParseStat(_G.GetStatistic(STAT_2V2_WON))
-	 pc.arena_3v3_played = ParseStat(_G.GetStatistic(STAT_3V3_PLAYED))
-	 pc.arena_3v3_won    = ParseStat(_G.GetStatistic(STAT_3V3_WON))
+	 pc.arena_played              = ParseStat(_G.GetStatistic(STAT_ARENAS_PLAYED))
+	 pc.arena_won                 = ParseStat(_G.GetStatistic(STAT_ARENAS_WON))
+	 pc.arena_2v2_played          = ParseStat(_G.GetStatistic(STAT_2V2_PLAYED))
+	 pc.arena_2v2_won             = ParseStat(_G.GetStatistic(STAT_2V2_WON))
+	 pc.arena_3v3_played          = ParseStat(_G.GetStatistic(STAT_3V3_PLAYED))
+	 pc.arena_3v3_won             = ParseStat(_G.GetStatistic(STAT_3V3_WON))
+	 pc.arena_solo_shuffle_played = ParseStat(_G.GetStatistic(STAT_SOLO_SHUFFLE_PLAYED))
+	 pc.arena_solo_shuffle_won    = ParseStat(_G.GetStatistic(STAT_SOLO_SHUFFLE_WON))
 end
 
 -- Save only the honor portion of the deal (for the honor gain event)
