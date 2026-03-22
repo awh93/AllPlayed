@@ -1,0 +1,30 @@
+## Interface: 120001, 120005, 50503, 11508, 20505
+## Author: IceDNicco
+## Title: AllPlayed
+## Notes: Track time played, rested XP and money for all characters
+## Version: 1.8.1
+## X-Category: Interface
+## IconTexture: Interface\Icons\INV_Misc_PocketWatch_02
+## DefaultState: enabled
+## OptionalDeps: Ace3, LibAbacus-3.0, LibCrayon-3.0, !ClassColors, LibQTip-1.0, LibDBIcon-1.0
+## SavedVariables: AllPlayedDB
+
+LibStub.lua
+libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
+libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
+embeds.xml
+
+AllPlayed-enUS.lua
+AllPlayed-deDE.lua
+AllPlayed-esES.lua
+AllPlayed-esMX.lua
+AllPlayed-frFR.lua
+AllPlayed-itIT.lua
+AllPlayed-koKR.lua
+AllPlayed-ptBR.lua
+AllPlayed-ruRU.lua
+AllPlayed-zhCN.lua
+AllPlayed-zhTW.lua
+Config.lua
+
+AllPlayed.lua

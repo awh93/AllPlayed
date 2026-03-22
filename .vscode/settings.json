@@ -1,0 +1,17 @@
+{
+  "python-envs.defaultEnvManager": "ms-python.python:system",
+  "python-envs.pythonProjects": [],
+  "Lua.runtime.version": "Lua 5.1",
+  "Lua.diagnostics.globals": [
+    "LibStub",
+    "C_AddOns",
+    "C_CurrencyInfo",
+    "SlashCmdList",
+    "NUM_CHAT_WINDOWS",
+    "SELECTED_CHAT_FRAME",
+    "hooksecurefunc"
+  ],
+  "files.associations": {
+    "*.toc": "ini"
+  }
+}
