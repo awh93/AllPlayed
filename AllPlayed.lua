@@ -978,19 +978,19 @@ end
 -- Print arena summary to chat
 function AllPlayed:PrintArenaSummary()
 	self:ComputeTotalHonor(true)
-	local played = self.total.arena_played or 0
-	local won    = self.total.arena_won or 0
 	local p2v2   = self.total.arena_2v2_played or 0
 	local w2v2   = self.total.arena_2v2_won or 0
 	local p3v3   = self.total.arena_3v3_played or 0
 	local w3v3   = self.total.arena_3v3_won or 0
+	local played = p2v2 + p3v3
+	local won    = w2v2 + w3v3
 	local pct     = played > 0 and (won  / played * 100) or 0
 	local pct_2v2 = p2v2   > 0 and (w2v2 / p2v2   * 100) or 0
 	local pct_3v3 = p3v3   > 0 and (w3v3 / p3v3   * 100) or 0
-	local fmt = "|cffff9900[AllPlayed Arena]|r %s |cffffffff%d|r |cff00ff00(%.0f%%)|r"
-	_G.DEFAULT_CHAT_FRAME:AddMessage(string.format(fmt, "Total:", played, pct))
-	_G.DEFAULT_CHAT_FRAME:AddMessage(string.format(fmt, "2v2:  ", p2v2, pct_2v2))
-	_G.DEFAULT_CHAT_FRAME:AddMessage(string.format(fmt, "3v3:  ", p3v3, pct_3v3))
+	local fmt = "|cffff9900[AllPlayed Arena]|r %s |cffffffff%d|r |cff00ff00[%.0f%%]|r"
+	_G.DEFAULT_CHAT_FRAME:AddMessage(string.format(fmt, "2v2:         ", p2v2, pct_2v2))
+	_G.DEFAULT_CHAT_FRAME:AddMessage(string.format(fmt, "3v3:         ", p3v3, pct_3v3))
+	_G.DEFAULT_CHAT_FRAME:AddMessage(string.format(fmt, "Total Arenas:", played, pct))
 end
 
 -- Fill the QTip witl the information
