@@ -349,7 +349,7 @@ function AllPlayed:OnInitialize()
 	_G.SLASH_ALLPLAYED_CONFIG2 = L["/allplayed"]
 	_G.SlashCmdList["ALLPLAYED_CONFIG"] = function(msg)
 		if msg and msg:lower() == "pvp" then
-			AP:PrintArenaSummary()
+			AllPlayed:PrintArenaSummary()
 		else
 			if AP and AP.DisplayConfigMenu then
 				AP.DisplayConfigMenu()
