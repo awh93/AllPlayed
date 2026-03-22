@@ -982,8 +982,8 @@ function AllPlayed:PrintArenaSummary()
 	local w2v2 = self.total.arena_2v2_won or 0
 	local p3v3 = self.total.arena_3v3_played or 0
 	local w3v3 = self.total.arena_3v3_won or 0
-	local played = self.total.arena_played or 0
-	local won    = self.total.arena_won or 0
+	local played = p2v2 + p3v3
+	local won    = w2v2 + w3v3
 	local pct     = played > 0 and (won  / played * 100) or 0
 	local pct_2v2 = p2v2 > 0 and (w2v2 / p2v2 * 100) or 0
 	local pct_3v3 = p3v3 > 0 and (w3v3 / p3v3 * 100) or 0
@@ -1139,8 +1139,8 @@ function AllPlayed:DrawTooltip(anchor)
 					end
 
 					if self:GetOption('show_arena_played') then
-						local rp = self.total_realm[faction][realm].arena_played or 0
-						local rw = self.total_realm[faction][realm].arena_won or 0
+						local rp = (self.total_realm[faction][realm].arena_2v2_played or 0) + (self.total_realm[faction][realm].arena_3v3_played or 0)
+						local rw = (self.total_realm[faction][realm].arena_2v2_won or 0) + (self.total_realm[faction][realm].arena_3v3_won or 0)
 						local rpct = rp > 0 and (rw / rp * 100) or 0
 						local arena_summary = C:White(('%d'):format(rp)) .. C:Green((' (%.0f%%)'):format(rpct))
 						if first_option then
@@ -1404,8 +1404,8 @@ end
 							end
 
 							if self:GetOption('show_arena_played') then
-								local played = pc_data.arena_played or 0
-								local won    = pc_data.arena_won or 0
+								local played = (pc_data.arena_2v2_played or 0) + (pc_data.arena_3v3_played or 0)
+								local won    = (pc_data.arena_2v2_won or 0) + (pc_data.arena_3v3_won or 0)
 								local pct    = played > 0 and (won / played * 100) or 0
 								col_text[nb_columns] = C:White(('%d'):format(played)) .. C:Green((' (%.0f%%)'):format(pct))
 								col_align[nb_columns] = 'RIGHT'
@@ -1487,8 +1487,8 @@ end
 	end
 
 	if self:GetOption('show_arena_totals') and (self:GetOption('show_arena_played') or self:GetOption('show_arena_won')) then
-		local total_played = self.total.arena_played or 0
-		local total_won    = self.total.arena_won or 0
+		local total_played = (self.total.arena_2v2_played or 0) + (self.total.arena_3v3_played or 0)
+		local total_won    = (self.total.arena_2v2_won or 0) + (self.total.arena_3v3_won or 0)
 		local total_2v2p   = self.total.arena_2v2_played or 0
 		local total_2v2w   = self.total.arena_2v2_won or 0
 		local total_3v3p   = self.total.arena_3v3_played or 0
